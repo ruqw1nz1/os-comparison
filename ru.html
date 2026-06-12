@@ -7,10 +7,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #09050e; /* Очень темный фиолетовый/черный */
+            --bg: #09050e; 
             --surface: rgba(20, 15, 30, 0.4);
             --border: rgba(139, 92, 246, 0.2);
-            --accent: #8b5cf6; /* Строгий фиолетовый */
+            --accent: #8b5cf6; 
             --accent-glow: rgba(139, 92, 246, 0.5);
             --text-main: #f3e8ff;
             --text-muted: #a78bfa;
@@ -31,29 +31,24 @@
 
         /* Эффект свечения за курсором */
         .mouse-glow {
-            position: fixed;
-            top: 0; left: 0;
+            position: fixed; top: 0; left: 0;
             width: 400px; height: 400px;
             background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 60%);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: -1;
-            transform: translate(-50%, -50%);
+            border-radius: 50%; pointer-events: none;
+            z-index: -1; transform: translate(-50%, -50%);
             transition: opacity 0.3s;
         }
 
-        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--bg); }
-        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
         /* Шапка */
         header {
             position: fixed; top: 0; width: 100%;
-            background: rgba(9, 5, 14, 0.8);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border);
-            z-index: 100;
+            background: rgba(9, 5, 14, 0.8); backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border); z-index: 100;
         }
         .nav-container {
             max-width: 1000px; margin: 0 auto; padding: 20px;
@@ -70,44 +65,40 @@
         .lang-switch a:hover { color: var(--text-main); }
         .lang-switch a.active { color: var(--accent); border-bottom: 1px solid var(--accent); }
 
-        /* Главный экран */
-        .hero {
-            max-width: 800px; margin: 180px auto 100px;
-            text-align: center; padding: 0 20px;
-        }
-        .hero h1 {
-            font-size: 3.5rem; font-weight: 300; margin-bottom: 20px;
-            letter-spacing: -1px;
-        }
+        /* Секции */
+        .hero { max-width: 800px; margin: 180px auto 80px; text-align: center; padding: 0 20px; }
+        .hero h1 { font-size: 3.5rem; font-weight: 300; margin-bottom: 20px; letter-spacing: -1px; }
         .hero p { font-size: 1.1rem; color: var(--text-muted); font-weight: 300; }
 
-        /* Секции и карточки */
-        .section-title {
-            font-size: 2rem; font-weight: 300; text-align: center; margin-bottom: 50px;
-        }
         .container { max-width: 1000px; margin: 0 auto 100px; padding: 0 20px; }
-        
-        .vs-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 30px;
+        .section-title { font-size: 2rem; font-weight: 300; text-align: center; margin-bottom: 40px; }
+
+        /* Текстовый блок */
+        .info-block {
+            background: rgba(139, 92, 246, 0.05);
+            border-left: 3px solid var(--accent);
+            padding: 25px 30px; margin-bottom: 40px;
+            border-radius: 0 8px 8px 0;
         }
+        .info-block h3 { margin-bottom: 10px; font-weight: 600; color: var(--text-main); }
+        .info-block p { color: var(--text-muted); font-size: 1rem; }
+
+        /* Карточки */
+        .vs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 50px; }
         .card {
             background: var(--surface); border: 1px solid var(--border);
             padding: 40px; border-radius: 8px; backdrop-filter: blur(5px);
             transition: transform 0.4s, border-color 0.4s, box-shadow 0.4s;
         }
         .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent);
+            transform: translateY(-5px); border-color: var(--accent);
             box-shadow: 0 10px 30px var(--accent-glow);
         }
-        
-        .card h3 { font-size: 1.8rem; font-weight: 600; margin-bottom: 5px; color: var(--text-main); }
+        .card h3 { font-size: 1.8rem; font-weight: 600; margin-bottom: 5px; }
         .card .type { font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent); margin-bottom: 20px; }
-        
         ul { list-style: none; margin: 20px 0 30px; }
         li { margin-bottom: 15px; font-size: 0.95rem; display: flex; gap: 10px; color: var(--text-muted); }
         li::before { content: '—'; color: var(--accent); }
-        
         .btn {
             display: block; text-align: center; padding: 12px;
             border: 1px solid var(--border); border-radius: 4px;
@@ -116,20 +107,25 @@
         }
         .btn:hover { background: var(--accent); border-color: var(--accent); color: #000; }
 
+        /* FAQ блок */
+        .faq-item {
+            background: var(--surface); border: 1px solid var(--border);
+            padding: 20px; border-radius: 8px; margin-bottom: 15px;
+        }
+        .faq-item h4 { color: var(--text-main); margin-bottom: 10px; font-weight: 600; }
+        .faq-item p { color: var(--text-muted); font-size: 0.95rem; }
+
         /* Таблица */
         table { width: 100%; border-collapse: collapse; margin-bottom: 40px; }
         th, td { padding: 15px; border-bottom: 1px solid var(--border); text-align: left; font-size: 0.95rem; }
         th { font-family: var(--font-mono); color: var(--accent); font-weight: 400; font-size: 0.85rem; }
         tr:hover td { background: rgba(139, 92, 246, 0.05); }
 
-        /* Футер */
         footer {
             border-top: 1px solid var(--border); padding: 40px 20px;
             text-align: center; color: var(--text-muted); font-size: 0.9rem;
         }
-        .tag { font-family: var(--font-mono); color: var(--accent); margin-top: 10px; }
 
-        /* Анимации JS (Intersection Observer) */
         .hidden { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
         .show { opacity: 1; transform: translateY(0); }
 
@@ -152,41 +148,49 @@
 
     <section class="hero hidden">
         <h1>Выбор системы</h1>
-        <p>Минимум процессов. Максимум производительности.</p>
+        <p>Минимум процессов. Максимум производительности для твоего ПК.</p>
     </section>
 
+    <div class="container hidden">
+        <div class="info-block">
+            <h3>Что такое кастомная Windows?</h3>
+            <p>Обычная Windows имеет много лишних программ. Они работают в фоне и забирают память. Кастомная ОС (Custom OS) — это версия системы, где удалили мусор. Это дает больше FPS в играх и делает работу за компьютером быстрее.</p>
+        </div>
+    </div>
+
     <div class="container">
+        <h2 class="section-title hidden">Главные конкуренты</h2>
         <div class="vs-grid">
             <div class="card hidden" style="transition-delay: 0.1s;">
                 <h3>AtlasOS</h3>
                 <div class="type">[ AME PLAYBOOK ]</div>
-                <p style="color: var(--text-muted); font-size: 0.9rem;">Оптимизация официальной Windows через скрипты с открытым кодом.</p>
+                <p style="color: var(--text-muted); font-size: 0.9rem; min-height: 60px;">Оптимизация официальной Windows через скрипты с открытым кодом. Это безопасно.</p>
                 <ul>
                     <li>Высокая безопасность (Open Source)</li>
                     <li>Античиты работают (FaceIT, Vanguard)</li>
-                    <li>Можно получать обновления</li>
-                    <li>Больше процессов, чем в ISO (~40)</li>
+                    <li>Можно получать важные обновления</li>
+                    <li>Меньше риск сломать систему</li>
                 </ul>
-                <a href="https://atlasos.net" target="_blank" class="btn">atlasos.net</a>
+                <a href="https://atlasos.net" target="_blank" class="btn">Скачать AtlasOS</a>
             </div>
 
             <div class="card hidden" style="transition-delay: 0.2s;">
                 <h3>X-Lite</h3>
                 <div class="type">[ CUSTOM ISO ]</div>
-                <p style="color: var(--text-muted); font-size: 0.9rem;">Готовый урезанный образ. Максимальная легкость для слабого железа.</p>
+                <p style="color: var(--text-muted); font-size: 0.9rem; min-height: 60px;">Готовый образ (ISO), где удалили код. Максимальная легкость для слабого железа.</p>
                 <ul>
                     <li>Ультра-малый размер (1-2 ГБ)</li>
-                    <li>Минимум процессов (~25)</li>
+                    <li>Минимум процессов (около 25-30)</li>
                     <li>Закрытый код сборки</li>
-                    <li>Риск проблем с периферией</li>
+                    <li>Могут не работать принтеры</li>
                 </ul>
-                <a href="https://windowsxlite.com" target="_blank" class="btn">windowsxlite.com</a>
+                <a href="https://windowsxlite.com" target="_blank" class="btn">Скачать X-Lite</a>
             </div>
         </div>
     </div>
 
     <div class="container hidden">
-        <h2 class="section-title">Сравнение</h2>
+        <h2 class="section-title">Подробное сравнение</h2>
         <div style="overflow-x: auto;">
             <table>
                 <thead>
@@ -203,32 +207,48 @@
                         <td>~4-6 GB</td>
                     </tr>
                     <tr>
-                        <td>RAM после старта</td>
+                        <td>Оперативная память (RAM)</td>
                         <td>~1.5 GB</td>
                         <td>~0.8 - 1.2 GB</td>
                     </tr>
                     <tr>
-                        <td>Надежность</td>
+                        <td>Надежность и стабильность</td>
                         <td>Отличная</td>
-                        <td>Низкая (для киберспорта)</td>
+                        <td>Низкая (иногда есть баги)</td>
                     </tr>
                     <tr>
-                        <td>Античиты</td>
-                        <td>Работают</td>
-                        <td>Возможны ошибки</td>
+                        <td>Античиты (для турниров)</td>
+                        <td>Работают без проблем</td>
+                        <td>Возможны ошибки или бан</td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
 
+    <div class="container hidden">
+        <h2 class="section-title">Частые вопросы (FAQ)</h2>
+        <div class="faq-item">
+            <h4>Можно ли получить бан в игре?</h4>
+            <p>В AtlasOS античиты работают хорошо. Бан получить сложно. В X-Lite удалено много файлов системы, поэтому строгие античиты (FaceIT) могут дать ошибку или бан.</p>
+        </div>
+        <div class="faq-item">
+            <h4>Как установить эти системы?</h4>
+            <p>Для X-Lite нужно записать образ ISO на флешку (например, через Rufus) и переустановить Windows. Для AtlasOS нужно иметь чистую установленную Windows и просто запустить их программу AME Wizard.</p>
+        </div>
+        <div class="faq-item">
+            <h4>Это бесплатно?</h4>
+            <p>Да, оба проекта полностью бесплатные. Но для AtlasOS желательно иметь официальный ключ Windows.</p>
+        </div>
+    </div>
+
     <footer class="hidden">
-        <p>Для стабильной работы выбирай Atlas. Для старого ПК — X-Lite.</p>
-        <div class="tag">ruqw1nz1</div>
+        <p>Итог: Для киберспорта и работы выбирай <b>Atlas</b>. Для старого ноутбука — <b>X-Lite</b>.</p>
+        <div style="font-family: var(--font-mono); color: var(--accent); margin-top: 15px;">ruqw1nz1 (11_NJK)</div>
     </footer>
 
     <script>
-        // Анимация при скролле (Observer)
+        // Анимация при прокрутке
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
