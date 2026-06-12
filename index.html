@@ -30,28 +30,23 @@
         }
 
         .mouse-glow {
-            position: fixed;
-            top: 0; left: 0;
+            position: fixed; top: 0; left: 0;
             width: 400px; height: 400px;
             background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 60%);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: -1;
-            transform: translate(-50%, -50%);
+            border-radius: 50%; pointer-events: none;
+            z-index: -1; transform: translate(-50%, -50%);
             transition: opacity 0.3s;
         }
 
-        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--bg); }
-        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
         header {
             position: fixed; top: 0; width: 100%;
-            background: rgba(9, 5, 14, 0.8);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border);
-            z-index: 100;
+            background: rgba(9, 5, 14, 0.8); backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border); z-index: 100;
         }
         .nav-container {
             max-width: 1000px; margin: 0 auto; padding: 20px;
@@ -68,42 +63,37 @@
         .lang-switch a:hover { color: var(--text-main); }
         .lang-switch a.active { color: var(--accent); border-bottom: 1px solid var(--accent); }
 
-        .hero {
-            max-width: 800px; margin: 180px auto 100px;
-            text-align: center; padding: 0 20px;
-        }
-        .hero h1 {
-            font-size: 3.5rem; font-weight: 300; margin-bottom: 20px;
-            letter-spacing: -1px;
-        }
+        .hero { max-width: 800px; margin: 180px auto 80px; text-align: center; padding: 0 20px; }
+        .hero h1 { font-size: 3.5rem; font-weight: 300; margin-bottom: 20px; letter-spacing: -1px; }
         .hero p { font-size: 1.1rem; color: var(--text-muted); font-weight: 300; }
 
-        .section-title {
-            font-size: 2rem; font-weight: 300; text-align: center; margin-bottom: 50px;
-        }
         .container { max-width: 1000px; margin: 0 auto 100px; padding: 0 20px; }
-        
-        .vs-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 30px;
+        .section-title { font-size: 2rem; font-weight: 300; text-align: center; margin-bottom: 40px; }
+
+        .info-block {
+            background: rgba(139, 92, 246, 0.05);
+            border-left: 3px solid var(--accent);
+            padding: 25px 30px; margin-bottom: 40px;
+            border-radius: 0 8px 8px 0;
         }
+        .info-block h3 { margin-bottom: 10px; font-weight: 600; color: var(--text-main); }
+        .info-block p { color: var(--text-muted); font-size: 1rem; }
+
+        .vs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 50px; }
         .card {
             background: var(--surface); border: 1px solid var(--border);
             padding: 40px; border-radius: 8px; backdrop-filter: blur(5px);
             transition: transform 0.4s, border-color 0.4s, box-shadow 0.4s;
         }
         .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent);
+            transform: translateY(-5px); border-color: var(--accent);
             box-shadow: 0 10px 30px var(--accent-glow);
         }
-        
-        .card h3 { font-size: 1.8rem; font-weight: 600; margin-bottom: 5px; color: var(--text-main); }
+        .card h3 { font-size: 1.8rem; font-weight: 600; margin-bottom: 5px; }
         .card .type { font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent); margin-bottom: 20px; }
-        
         ul { list-style: none; margin: 20px 0 30px; }
         li { margin-bottom: 15px; font-size: 0.95rem; display: flex; gap: 10px; color: var(--text-muted); }
         li::before { content: '—'; color: var(--accent); }
-        
         .btn {
             display: block; text-align: center; padding: 12px;
             border: 1px solid var(--border); border-radius: 4px;
@@ -111,6 +101,13 @@
             font-size: 0.9rem; transition: 0.3s;
         }
         .btn:hover { background: var(--accent); border-color: var(--accent); color: #000; }
+
+        .faq-item {
+            background: var(--surface); border: 1px solid var(--border);
+            padding: 20px; border-radius: 8px; margin-bottom: 15px;
+        }
+        .faq-item h4 { color: var(--text-main); margin-bottom: 10px; font-weight: 600; }
+        .faq-item p { color: var(--text-muted); font-size: 0.95rem; }
 
         table { width: 100%; border-collapse: collapse; margin-bottom: 40px; }
         th, td { padding: 15px; border-bottom: 1px solid var(--border); text-align: left; font-size: 0.95rem; }
@@ -121,7 +118,6 @@
             border-top: 1px solid var(--border); padding: 40px 20px;
             text-align: center; color: var(--text-muted); font-size: 0.9rem;
         }
-        .tag { font-family: var(--font-mono); color: var(--accent); margin-top: 10px; }
 
         .hidden { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
         .show { opacity: 1; transform: translateY(0); }
@@ -145,41 +141,49 @@
 
     <section class="hero hidden">
         <h1>System Choice</h1>
-        <p>Minimum processes. Maximum performance.</p>
+        <p>Minimum processes. Maximum performance for your PC.</p>
     </section>
 
+    <div class="container hidden">
+        <div class="info-block">
+            <h3>What is a Custom Windows?</h3>
+            <p>A normal Windows has many extra programs. They work in the background and take your memory. A Custom OS is a version of the system where junk is removed. This gives you more FPS in games and makes your computer work faster.</p>
+        </div>
+    </div>
+
     <div class="container">
+        <h2 class="section-title hidden">Main Competitors</h2>
         <div class="vs-grid">
             <div class="card hidden" style="transition-delay: 0.1s;">
                 <h3>AtlasOS</h3>
                 <div class="type">[ AME PLAYBOOK ]</div>
-                <p style="color: var(--text-muted); font-size: 0.9rem;">Optimize official Windows using open-source scripts.</p>
+                <p style="color: var(--text-muted); font-size: 0.9rem; min-height: 60px;">It optimizes official Windows using open-source scripts. It is safe to use.</p>
                 <ul>
                     <li>High security (Open Source)</li>
                     <li>Anti-cheats work (FaceIT, Vanguard)</li>
-                    <li>System updates available</li>
-                    <li>More processes than ISO (~40)</li>
+                    <li>You can get important updates</li>
+                    <li>Less risk of breaking the system</li>
                 </ul>
-                <a href="https://atlasos.net" target="_blank" class="btn">atlasos.net</a>
+                <a href="https://atlasos.net" target="_blank" class="btn">Download AtlasOS</a>
             </div>
 
             <div class="card hidden" style="transition-delay: 0.2s;">
                 <h3>X-Lite</h3>
                 <div class="type">[ CUSTOM ISO ]</div>
-                <p style="color: var(--text-muted); font-size: 0.9rem;">Ready stripped image. Extreme lightweight for old hardware.</p>
+                <p style="color: var(--text-muted); font-size: 0.9rem; min-height: 60px;">A ready image (ISO) where code is removed. It is very light for old hardware.</p>
                 <ul>
                     <li>Ultra-small size (1-2 GB)</li>
-                    <li>Minimum processes (~25)</li>
+                    <li>Minimum processes (around 25-30)</li>
                     <li>Closed source build</li>
-                    <li>Risk of hardware issues</li>
+                    <li>Printers might not work</li>
                 </ul>
-                <a href="https://windowsxlite.com" target="_blank" class="btn">windowsxlite.com</a>
+                <a href="https://windowsxlite.com" target="_blank" class="btn">Download X-Lite</a>
             </div>
         </div>
     </div>
 
     <div class="container hidden">
-        <h2 class="section-title">Comparison</h2>
+        <h2 class="section-title">Detailed Comparison</h2>
         <div style="overflow-x: auto;">
             <table>
                 <thead>
@@ -196,31 +200,48 @@
                         <td>~4-6 GB</td>
                     </tr>
                     <tr>
-                        <td>RAM at Startup</td>
+                        <td>Memory (RAM)</td>
                         <td>~1.5 GB</td>
                         <td>~0.8 - 1.2 GB</td>
                     </tr>
                     <tr>
                         <td>Stability</td>
                         <td>Excellent</td>
-                        <td>Low (for e-sports)</td>
+                        <td>Low (sometimes has bugs)</td>
                     </tr>
                     <tr>
-                        <td>Anti-Cheats</td>
-                        <td>Working</td>
-                        <td>Possible errors</td>
+                        <td>Anti-Cheats (for tournaments)</td>
+                        <td>Work without problems</td>
+                        <td>Possible errors or ban</td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
 
+    <div class="container hidden">
+        <h2 class="section-title">Frequent Questions (FAQ)</h2>
+        <div class="faq-item">
+            <h4>Can I get a ban in games?</h4>
+            <p>In AtlasOS, anti-cheats work well. It is hard to get a ban. In X-Lite, many system files are deleted, so strict anti-cheats (like FaceIT) can give an error or a ban.</p>
+        </div>
+        <div class="faq-item">
+            <h4>How to install these systems?</h4>
+            <p>For X-Lite, you need to write the ISO image to a USB flash drive (for example, with Rufus) and reinstall Windows. For AtlasOS, you need to have a clean installed Windows and just run their AME Wizard program.</p>
+        </div>
+        <div class="faq-item">
+            <h4>Is it free?</h4>
+            <p>Yes, both projects are completely free. But for AtlasOS, it is good to have an official Windows key.</p>
+        </div>
+    </div>
+
     <footer class="hidden">
-        <p>For stable work, choose Atlas. For an old PC, use X-Lite.</p>
-        <div class="tag">ruqw1nz1</div>
+        <p>Result: For e-sports and work, choose <b>Atlas</b>. For an old laptop, choose <b>X-Lite</b>.</p>
+        <div style="font-family: var(--font-mono); color: var(--accent); margin-top: 15px;">ruqw1nz1 (11_NJK)</div>
     </footer>
 
     <script>
+        // Scroll animation
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
@@ -231,6 +252,7 @@
 
         document.querySelectorAll('.hidden').forEach((el) => observer.observe(el));
 
+        // Mouse glow effect
         const glow = document.querySelector('.mouse-glow');
         window.addEventListener('mousemove', (e) => {
             glow.style.left = e.clientX + 'px';
