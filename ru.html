@@ -4,25 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OS Showdown: Atlas vs X-Lite</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=JetBrains+Mono:wght@400;700&family=Outfit:wght@700;900&display=swap"
-        rel="stylesheet">
+    <title>Битва ОС: Atlas vs X-Lite</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=JetBrains+Mono:wght@400;700&family=Outfit:wght@700;900&display=swap" rel="stylesheet">
     <style>
         /* =========================================================
-           ОСНОВНОЙ СТИЛЬ И ПЕРЕМЕННЫЕ
+           ОСНОВНЫЕ СТИЛИ И ПЕРЕМЕННЫЕ
            ========================================================= */
         :root {
             --bg: #030305;
-            --surface: rgba(20, 20, 25, 0.6);
+            --surface: rgba(20, 20, 25, 0.7);
             --border: rgba(255, 255, 255, 0.1);
             --text-main: #f0f0f0;
             --text-muted: #8892b0;
-
-            /* Цвета сборок */
             --atlas: #00e5ff;
             --xlite: #ff2a5f;
-
             --font-sans: 'Inter', sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
             --font-display: 'Outfit', sans-serif;
@@ -34,47 +29,49 @@
             box-sizing: border-box;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
 
         body {
             background-color: var(--bg);
             color: var(--text-main);
             font-family: var(--font-sans);
-            background-image:
-                radial-gradient(circle at 15% 50%, rgba(0, 229, 255, 0.08), transparent 25%),
-                radial-gradient(circle at 85% 30%, rgba(255, 42, 95, 0.08), transparent 25%);
-            background-attachment: fixed;
-            overflow-x: hidden;
             line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Анимированный фон */
+        .bg-animation {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 15% 50%, rgba(0, 229, 255, 0.15), transparent 30%),
+                radial-gradient(circle at 85% 30%, rgba(255, 42, 95, 0.15), transparent 30%);
+            animation: pulseBg 10s infinite alternate;
+        }
+
+        @keyframes pulseBg {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
         }
 
         /* Скроллбар */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--bg);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #333;
-            border-radius: 4px;
-        }
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: #444; border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--atlas); }
 
         /* =========================================================
-           HEADER (Glassmorphism)
+           ШАПКА (HEADER)
            ========================================================= */
         header {
             position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(3, 3, 5, 0.5);
-            backdrop-filter: blur(16px);
+            top: 0; width: 100%;
+            background: rgba(3, 3, 5, 0.7);
+            backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
             z-index: 100;
+            transition: all 0.3s ease;
         }
 
         .nav-container {
@@ -88,20 +85,28 @@
 
         .logo {
             font-family: var(--font-display);
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             letter-spacing: 1px;
+            text-transform: uppercase;
         }
+        .logo span { color: var(--atlas); text-shadow: 0 0 10px var(--atlas); }
 
-        .logo span {
-            color: var(--atlas);
+        .lang-switch a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-family: var(--font-mono);
+            margin-left: 15px;
+            transition: 0.3s;
         }
+        .lang-switch a:hover { color: #fff; }
+        .lang-switch a.active { color: var(--atlas); font-weight: bold; }
 
         /* =========================================================
-           HERO SECTION
+           ГЛАВНЫЙ ЭКРАН (HERO)
            ========================================================= */
         .hero {
             max-width: 900px;
-            margin: 150px auto 80px;
+            margin: 180px auto 100px;
             text-align: center;
             padding: 0 20px;
         }
@@ -114,291 +119,245 @@
             background: linear-gradient(to right, #fff, #8892b0);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            animation: slideDown 1s ease-out;
         }
 
         .hero p {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: var(--text-muted);
             margin-bottom: 40px;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         /* =========================================================
-           БИТВА СБОРОК (VS SECTION)
+           КАРТОЧКИ (VS SECTION)
            ========================================================= */
-        .vs-section {
-            max-width: 1200px;
-            margin: 0 auto 100px;
-            padding: 0 20px;
-        }
-
         .section-title {
             font-family: var(--font-display);
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
+            text-shadow: 0 0 20px rgba(255,255,255,0.1);
+        }
+
+        .vs-section {
+            max-width: 1200px;
+            margin: 0 auto 120px;
+            padding: 0 20px;
         }
 
         .vs-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 40px;
+            gap: 50px;
             position: relative;
         }
 
-        /* Значок VS по центру */
         .vs-badge {
             position: absolute;
-            top: 50%;
-            left: 50%;
+            top: 50%; left: 50%;
             transform: translate(-50%, -50%);
             background: var(--bg);
-            border: 1px solid var(--border);
-            padding: 15px;
+            border: 2px solid var(--border);
+            padding: 20px;
             border-radius: 50%;
             font-family: var(--font-display);
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             color: #fff;
             z-index: 10;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.9);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(-50%, -50%); }
+            50% { transform: translate(-50%, -60%); }
         }
 
         .os-card {
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 16px;
+            border-radius: 20px;
             padding: 40px;
-            backdrop-filter: blur(10px);
-            transition: transform 0.4s;
-        }
-
-        .os-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .os-card.atlas {
-            border-top: 4px solid var(--atlas);
-            box-shadow: 0 10px 40px rgba(0, 229, 255, 0.1);
-        }
-
-        .os-card.xlite {
-            border-top: 4px solid var(--xlite);
-            box-shadow: 0 10px 40px rgba(255, 42, 95, 0.1);
-        }
-
-        .os-header {
+            backdrop-filter: blur(15px);
+            transition: all 0.4s ease;
             display: flex;
+            flex-direction: column;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
         }
 
-        .os-title {
-            font-family: var(--font-display);
-            font-size: 2.2rem;
-        }
+        .os-card:hover { transform: translateY(-15px); }
+        .os-card.atlas { border-top: 5px solid var(--atlas); }
+        .os-card.atlas:hover { box-shadow: 0 15px 50px rgba(0, 229, 255, 0.2); border-color: var(--atlas); }
+        .os-card.xlite { border-top: 5px solid var(--xlite); }
+        .os-card.xlite:hover { box-shadow: 0 15px 50px rgba(255, 42, 95, 0.2); border-color: var(--xlite); }
 
-        .os-card.atlas .os-title {
-            color: var(--atlas);
-        }
-
-        .os-card.xlite .os-title {
-            color: var(--xlite);
-        }
+        .os-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+        .os-title { font-family: var(--font-display); font-size: 2.5rem; }
+        .os-card.atlas .os-title { color: var(--atlas); }
+        .os-card.xlite .os-title { color: var(--xlite); }
 
         .os-type {
             font-family: var(--font-mono);
-            font-size: 0.85rem;
-            padding: 5px 10px;
-            border-radius: 4px;
-            background: rgba(255, 255, 255, 0.05);
+            font-size: 0.9rem;
+            padding: 6px 12px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.08);
         }
 
-        .feature-list {
-            list-style: none;
-            margin-top: 20px;
-        }
+        .feature-list { list-style: none; margin: 25px 0 40px; }
+        .feature-list li { margin-bottom: 18px; display: flex; align-items: flex-start; gap: 12px; font-size: 1.05rem; color: #ddd; }
+        .feature-list li::before { content: '✓'; font-weight: bold; font-size: 1.2rem; }
+        .os-card.atlas .feature-list li::before { color: var(--atlas); }
+        .os-card.xlite .feature-list li::before { color: var(--xlite); }
+        .feature-list li.con::before { content: '✕'; color: #ff4444 !important; }
 
-        .feature-list li {
-            margin-bottom: 15px;
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            font-size: 1rem;
-            color: #ccc;
+        .os-link {
+            display: block; text-align: center; padding: 16px; border-radius: 10px;
+            font-family: var(--font-mono); font-size: 1rem; text-decoration: none;
+            font-weight: bold; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;
         }
-
-        .feature-list li::before {
-            content: '✓';
-            font-weight: bold;
-        }
-
-        .os-card.atlas .feature-list li::before {
-            color: var(--atlas);
-        }
-
-        .os-card.xlite .feature-list li::before {
-            color: var(--xlite);
-        }
-
-        /* Минусы (крестики) */
-        .feature-list li.con::before {
-            content: '✕';
-            color: #ff4444 !important;
-        }
+        .os-card.atlas .os-link { background: rgba(0, 229, 255, 0.1); color: var(--atlas); border: 1px solid var(--atlas); }
+        .os-card.atlas .os-link:hover { background: var(--atlas); color: #000; box-shadow: 0 0 25px rgba(0, 229, 255, 0.5); }
+        .os-card.xlite .os-link { background: rgba(255, 42, 95, 0.1); color: var(--xlite); border: 1px solid var(--xlite); }
+        .os-card.xlite .os-link:hover { background: var(--xlite); color: #fff; box-shadow: 0 0 25px rgba(255, 42, 95, 0.5); }
 
         /* =========================================================
            ТАБЛИЦА СРАВНЕНИЯ
            ========================================================= */
         .compare-table-wrapper {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 30px;
-            overflow-x: auto;
-            backdrop-filter: blur(10px);
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: 20px; padding: 40px; overflow-x: auto;
+            backdrop-filter: blur(15px);
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-        }
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th, td { padding: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); transition: background 0.3s; }
+        th { font-family: var(--font-mono); color: var(--text-muted); font-size: 1rem; text-transform: uppercase; }
+        tr:hover td { background: rgba(255, 255, 255, 0.03); }
+        tr:last-child td { border-bottom: none; }
 
-        th,
-        td {
-            padding: 18px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
+        .win-atlas { color: var(--atlas); font-weight: bold; }
+        .win-xlite { color: var(--xlite); font-weight: bold; }
+        .bad-stat { color: #ff4444; }
 
-        th {
-            font-family: var(--font-mono);
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            text-transform: uppercase;
+        /* =========================================================
+           НОВАЯ СЕКЦИЯ: ДЛЯ КОГО ЭТО?
+           ========================================================= */
+        .target-audience {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 40px;
         }
+        .audience-box {
+            padding: 30px; border-radius: 15px; background: rgba(255,255,255,0.02);
+            border: 1px dashed var(--border); text-align: center;
+        }
+        .audience-box h3 { font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 15px; }
 
-        tr:last-child td {
-            border-bottom: none;
-        }
-
-        .win-atlas {
-            color: var(--atlas);
-            font-weight: bold;
-        }
-
-        .win-xlite {
-            color: var(--xlite);
-            font-weight: bold;
-        }
+        /* =========================================================
+           АНИМАЦИЯ ПРИ СКРОЛЛЕ (JS КЛАСС)
+           ========================================================= */
+        .reveal { opacity: 0; transform: translateY(50px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
         /* =========================================================
            FOOTER
            ========================================================= */
-        footer {
-            border-top: 1px solid var(--border);
-            padding: 50px 20px;
-            text-align: center;
-        }
-
+        footer { border-top: 1px solid var(--border); padding: 60px 20px; text-align: center; background: rgba(0,0,0,0.5); }
         .tag {
-            display: inline-block;
-            padding: 8px 16px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border);
-            border-radius: 30px;
-            font-family: var(--font-mono);
-            font-size: 0.9rem;
-            margin-top: 20px;
-            transition: 0.3s;
-            cursor: crosshair;
+            display: inline-block; padding: 10px 20px; background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border); border-radius: 30px; font-family: var(--font-mono);
+            font-size: 1rem; margin-top: 25px; transition: 0.3s; cursor: pointer; color: #fff;
         }
-
-        .tag:hover {
-            border-color: var(--atlas);
-            box-shadow: 0 0 15px rgba(0, 229, 255, 0.3);
-            color: var(--atlas);
-        }
+        .tag:hover { border-color: var(--atlas); box-shadow: 0 0 20px rgba(0, 229, 255, 0.4); color: var(--atlas); transform: scale(1.05); }
 
         @media (max-width: 900px) {
-            .vs-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .vs-badge {
-                display: none;
-            }
-
-            .hero h1 {
-                font-size: 3rem;
-            }
+            .vs-grid { grid-template-columns: 1fr; }
+            .vs-badge { display: none; }
+            .hero h1 { font-size: 3rem; }
+            .target-audience { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 
 <body>
 
+    <div class="bg-animation"></div>
+
     <header>
         <div class="nav-container">
             <div class="logo">Custom<span>OS</span></div>
-            <div style="font-family: var(--font-mono); color: var(--text-muted); font-size: 0.8rem;">[VER 4.0]</div>
+            <div class="lang-switch">
+                <a href="ru.html" class="active">RU</a>
+                <a href="index.html">EN</a>
+            </div>
         </div>
     </header>
 
     <section class="hero">
-        <h1>Кастомная Windows: Выбор геймера</h1>
-        <p>Меньше процессов, меньше задержек, больше FPS. Сравниваем два самых популярных подхода к оптимизации системы.
-        </p>
+        <h1>Кастомная Windows: Твой лучший выбор</h1>
+        <p>Меньше процессов, меньше задержек, больше FPS. Мы сравнили два самых популярных способа сделать твой ПК быстрее.</p>
     </section>
 
-    <!-- БЛОК СРАВНЕНИЯ -->
-    <section class="vs-section">
-        <h2 class="section-title">Playbook vs Custom ISO</h2>
+    <section class="vs-section reveal">
+        <h2 class="section-title">Playbook против Custom ISO</h2>
         <div class="vs-grid">
             <div class="vs-badge">VS</div>
 
-            <!-- ATLAS OS CARD -->
             <div class="os-card atlas">
-                <div class="os-header">
-                    <div class="os-title">AtlasOS</div>
-                    <div class="os-type">AME Playbook</div>
+                <div>
+                    <div class="os-header">
+                        <div class="os-title">AtlasOS</div>
+                        <div class="os-type">AME Playbook</div>
+                    </div>
+                    <p style="color: var(--text-muted); margin-bottom: 25px; min-height: 70px;">
+                        Безопасный скрипт. Он меняет твою официальную Windows, удаляет мусор и делает систему быстрее. Код открыт для всех.
+                    </p>
+                    <ul class="feature-list">
+                        <li><b>Безопасность:</b> Открытый код, вирусов нет.</li>
+                        <li><b>Установка:</b> Не нужно переустанавливать чистую Windows.</li>
+                        <li><b>Игры:</b> Отлично работают античиты (FaceIT, Vanguard).</li>
+                        <li><b>Обновления:</b> Ты можешь получать важные патчи.</li>
+                        <li class="con"><b>Размер:</b> Весит больше, чем X-Lite.</li>
+                        <li class="con"><b>Процессы:</b> Около 40-50 процессов.</li>
+                    </ul>
                 </div>
-                <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px; height: 60px;">
-                    Модифицирует вашу чистую, официальную Windows 10/11 через скрипты. Открытый исходный код.
-                </p>
-                <ul class="feature-list">
-                    <li><b>Безопасность:</b> Код открыт на GitHub, нет скрытых вирусов.</li>
-                    <li><b>Установка:</b> Не требует переустановки, если у вас чистая Windows.</li>
-                    <li><b>Защита:</b> Можно оставить Windows Defender (по желанию).</li>
-                    <li><b>Обновления:</b> Работают важные патчи безопасности.</li>
-                    <li class="con"><b>Размер:</b> Занимает больше места, чем вырезанные ISO.</li>
-                    <li class="con"><b>Процессы:</b> ~40-50 процессов в простое.</li>
-                </ul>
+                <a href="https://atlasos.net" target="_blank" class="os-link">Сайт AtlasOS</a>
             </div>
 
-            <!-- X-LITE CARD -->
             <div class="os-card xlite">
-                <div class="os-header">
-                    <div class="os-title">X-Lite</div>
-                    <div class="os-type">Custom ISO</div>
+                <div>
+                    <div class="os-header">
+                        <div class="os-title">X-Lite</div>
+                        <div class="os-type">Custom ISO</div>
+                    </div>
+                    <p style="color: var(--text-muted); margin-bottom: 25px; min-height: 70px;">
+                        Это уже готовый образ системы (ISO). Из него физически удалили много лишнего кода, чтобы он был очень легким.
+                    </p>
+                    <ul class="feature-list">
+                        <li><b>Легкость:</b> Образ весит всего 1-2 ГБ.</li>
+                        <li><b>Процессы:</b> Всего 25-30 процессов (очень мало!).</li>
+                        <li><b>Старое железо:</b> Отлично работает на слабых ПК.</li>
+                        <li><b>Дизайн:</b> Красивые темы сразу после установки.</li>
+                        <li class="con"><b>Закрытый код:</b> Ты должен доверять автору.</li>
+                        <li class="con"><b>Проблемы:</b> Могут не работать принтеры или Bluetooth.</li>
+                    </ul>
                 </div>
-                <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px; height: 60px;">
-                    Готовый скачиваемый образ (ISO), из которого физически удален код лишних программ.
-                </p>
-                <ul class="feature-list">
-                    <li><b>Ультра-легкость:</b> Образ весит всего 1-2 ГБ.</li>
-                    <li><b>Процессы:</b> ~25-30 процессов в простое (рекордный минимум).</li>
-                    <li><b>Старое железо:</b> Идеально летит на слабых ноутбуках и старых ПК.</li>
-                    <li class="con"><b>Закрытость:</b> Вы должны доверять автору сборки (закрытый код).</li>
-                    <li class="con"><b>Апдейты:</b> Центр обновлений обычно полностью вырезан.</li>
-                    <li class="con"><b>Софт:</b> Некоторые программы могут не работать из-за отсутствия библиотек.</li>
-                </ul>
+                <a href="https://windowsxlite.com" target="_blank" class="os-link">Сайт X-Lite</a>
             </div>
         </div>
     </section>
 
-    <!-- ТАБЛИЦА ХАРАКТЕРИСТИК -->
-    <section class="vs-section">
-        <h2 class="section-title" style="font-size: 2rem;">Прямое сравнение</h2>
+    <section class="vs-section reveal">
+        <h2 class="section-title">Прямое сравнение</h2>
         <div class="compare-table-wrapper">
             <table>
                 <thead>
@@ -409,49 +368,81 @@
                         <th>Windows X-Lite</th>
                     </tr>
                 </thead>
-                <tbody style="font-size: 0.95rem;">
+                <tbody>
                     <tr>
-                        <td>Метод установки</td>
-                        <td style="color: var(--text-muted);">Официальный ISO</td>
-                        <td>Скрипт AME Wizard</td>
-                        <td>Кастомный ISO (Flash-накопитель)</td>
-                    </tr>
-                    <tr>
-                        <td>Место на диске (после установки)</td>
+                        <td>Место на диске</td>
                         <td style="color: var(--text-muted);">~25-30 GB</td>
                         <td class="win-atlas">~12-15 GB</td>
                         <td class="win-xlite">~4-6 GB</td>
                     </tr>
                     <tr>
-                        <td>RAM после старта</td>
+                        <td>Оперативная память (RAM)</td>
                         <td style="color: var(--text-muted);">~3.5 GB</td>
                         <td class="win-atlas">~1.5 GB</td>
-                        <td class="win-xlite">~0.8 GB - 1.2 GB</td>
+                        <td class="win-xlite">~0.8 - 1.2 GB</td>
                     </tr>
                     <tr>
-                        <td>Надежность (Повседневная работа)</td>
+                        <td>Надежность работы</td>
                         <td style="color: var(--text-muted);">Высокая</td>
-                        <td class="win-atlas">Отличная (всё работает)</td>
-                        <td style="color: #ff4444;">Низкая (только для игр)</td>
+                        <td class="win-atlas">Отличная</td>
+                        <td class="bad-stat">Низкая (для игр)</td>
                     </tr>
                     <tr>
-                        <td>FPS 1% Low (Плавность)</td>
-                        <td style="color: var(--text-muted);">Базовая</td>
-                        <td class="win-atlas">Значительный прирост</td>
-                        <td class="win-xlite">Максимальный прирост</td>
+                        <td>Античиты (FaceIT)</td>
+                        <td style="color: var(--text-muted);">Идеально</td>
+                        <td class="win-atlas">Работают</td>
+                        <td class="bad-stat">Возможен бан/ошибки</td>
+                    </tr>
+                    <tr>
+                        <td>Обновления</td>
+                        <td style="color: var(--text-muted);">Принудительно</td>
+                        <td class="win-atlas">По выбору</td>
+                        <td class="bad-stat">Вырезаны</td>
+                    </tr>
+                    <tr>
+                        <td>Прирост FPS (1% Low)</td>
+                        <td style="color: var(--text-muted);">Базовый</td>
+                        <td class="win-atlas">Значительный</td>
+                        <td class="win-xlite">Максимальный</td>
                     </tr>
                 </tbody>
             </table>
         </div>
+
+        <div class="target-audience">
+            <div class="audience-box">
+                <h3 style="color: var(--atlas);">Кому подойдет AtlasOS?</h3>
+                <p style="color: var(--text-muted);">Для основного компьютера. Если ты играешь в соревновательные игры, работаешь, сидишь в интернете и тебе нужна стабильная система без лагов.</p>
+            </div>
+            <div class="audience-box">
+                <h3 style="color: var(--xlite);">Кому подойдет X-Lite?</h3>
+                <p style="color: var(--text-muted);">Для очень старых ПК или ноутбуков. Если компьютер нужен только для запуска одной игры и тебе важен каждый мегабайт памяти.</p>
+            </div>
+        </div>
     </section>
 
     <footer>
-        <div style="color: var(--text-muted); font-size: 0.9rem;">
-            Выбор зависит от твоих задач. Для мейна — Atlas. Для чистого FPS на старом ПК — X-Lite.
-        </div>
-        <div class="tag">ruqw1nz1</div>
+        <h2 style="font-family: var(--font-display); margin-bottom: 15px;">Что выбрать?</h2>
+        <p style="color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto;">
+            Всё зависит от твоих задач. Для повседневной работы и киберспорта — <b>Atlas</b>. Для старого ноутбука и чистых FPS — <b>X-Lite</b>.
+        </p>
+        <div class="tag">Сделано для ruqw1nz1</div>
     </footer>
 
+    <script>
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal(); // Запуск при загрузке
+    </script>
 </body>
-
 </html>
